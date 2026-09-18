@@ -60,7 +60,7 @@ Built using Streamlit:
 
 The main dashboard provides access to both AI Query Assistant and Anomaly Detection modules.
 
-![alt text](image.png)
+![alt text](dashboard.png)
 
 ---
 
@@ -70,7 +70,7 @@ Users can ask questions in plain English and the system automatically generates 
 
 **Question:** How many open tickets are there?
 
-![alt text](image-1.png)
+![alt text](open-tickets.png)
 
 **Result:** 111 Open Tickets
 
@@ -82,7 +82,7 @@ Identify agents with lower customer satisfaction ratings.
 
 **Question:** Which agent has the lowest average customer rating?
 
-!![alt text](image-2.png)
+!![alt text](critical-tickets.png)
 
 **Result:** AGT-08 → Average Rating: 3.48
 
@@ -92,11 +92,11 @@ Identify agents with lower customer satisfaction ratings.
 
 The system automatically highlights operational anomalies and ticket risks.
 
-![alt text](image-3.png)
+![alt text](agent-rating.png)
 
-![alt text](image-4.png)
+![alt text](technical-rating.png)
 
-![alt text](image-5.png)
+![alt text](anomaly-detection.png)
 
 **Summary Results:**
 
