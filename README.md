@@ -6,6 +6,19 @@ The application uses a Large Language Model (LLM) to convert user questions into
 
 ---
 
+## 🎯 Project Objective
+
+This project was developed as part of the **DOTMappers AI Engineer Technical Assessment**.
+
+The objective was to build an AI-powered support ticket analytics system capable of:
+
+- Converting natural language questions into SQL queries
+- Executing SQL queries on support ticket data
+- Detecting operational anomalies
+- Providing insights through an interactive dashboard
+
+---
+
 ## 🚀 Features
 
 ### 🤖 Natural Language to SQL
@@ -31,6 +44,7 @@ The system automatically:
 The application identifies key operational issues:
 
 #### Unresolved High/Critical Tickets
+
 Tickets where:
 
 - Priority = High or Critical
@@ -63,7 +77,7 @@ Built using Streamlit:
 
 The main dashboard provides access to both AI Query Assistant and Anomaly Detection modules.
 
-![Dashboard](screenshots/home-page.png)
+![Dashboard](screenshots/landing-page.png)
 
 ---
 
@@ -71,11 +85,13 @@ The main dashboard provides access to both AI Query Assistant and Anomaly Detect
 
 Users can ask questions in plain English and the system automatically generates SQL.
 
-**Question:** How many open tickets are there?
+### Question:
+**How many open tickets are there?**
 
 ![Open Tickets](screenshots/query-open-tickets.png)
 
-**Result:** 111 Open Tickets
+### Result:
+**111 Open Tickets**
 
 ---
 
@@ -83,17 +99,23 @@ Users can ask questions in plain English and the system automatically generates 
 
 Identify agents with lower customer satisfaction ratings.
 
-**Question:** Which agent has the lowest average customer rating?
+### Question:
+**Which agent has the lowest average customer rating?**
 
 ![Lowest Rated Agent](screenshots/query-lowest-rated-agent.png)
 
-**Result:** AGT-08 → Average Rating: 3.48
+### Result:
+**AGT-08 → Average Rating: 3.48**
 
 ---
 
-## Anomaly Detection
+## Anomaly Detection Dashboard
 
-### Unresolved High Priority Tickets
+The system automatically identifies operational issues and ticket risks.
+
+### Unresolved High/Critical Tickets
+
+Tickets with High or Critical priority that are not yet resolved.
 
 ![Unresolved High Priority Tickets](screenshots/anomaly-unresolved-high-priority.png)
 
@@ -101,11 +123,15 @@ Identify agents with lower customer satisfaction ratings.
 
 ### Resolution Time Anomalies
 
+Tickets with unusually high resolution times.
+
 ![Resolution Time Anomalies](screenshots/anomaly-resolution-time.png)
 
 ---
 
 ### Low Rated Tickets
+
+Tickets with customer ratings less than or equal to 2.
 
 ![Low Rated Tickets](screenshots/anomaly-low-rated-tickets.png)
 
@@ -141,3 +167,245 @@ Query Results
       │
       ▼
 Streamlit Dashboard
+```
+
+---
+
+# 📂 Project Structure
+
+```text
+ai-ticket-assistant/
+│
+├── app/
+│   ├── __init__.py
+│   ├── anomaly_detector.py
+│   ├── data_loader.py
+│   ├── database.py
+│   ├── llm_service.py
+│   ├── main.py
+│   └── query_engine.py
+│
+├── data/
+│   └── support_tickets.csv
+│
+├── notebooks/
+│   └── explore_data.py
+│
+├── tests/
+│   ├── test_anomaly_detector.py
+│   ├── test_groq.py
+│   ├── test_query_engine.py
+│   └── test_sql_generation.py
+│
+├── ui/
+│   └── streamlit_app.py
+│
+├── screenshots/
+│   ├── landing-page.png
+│   ├── query-open-tickets.png
+│   ├── query-lowest-rated-agent.png
+│   ├── anomaly-unresolved-high-priority.png
+│   ├── anomaly-resolution-time.png
+│   └── anomaly-low-rated-tickets.png
+│
+├── requirements.txt
+├── .env.example
+└── README.md
+```
+
+---
+
+# 🛠️ Technologies Used
+
+### Programming Language
+- Python
+
+### Database
+- SQLite
+
+### Data Processing
+- Pandas
+
+### AI / LLM
+- Groq API
+- GPT-OSS-20B
+
+### Frontend
+- Streamlit
+
+### Environment Management
+- Python Virtual Environment
+- python-dotenv
+
+---
+
+# ⚙️ Installation
+
+## 1. Clone the Repository
+
+```bash
+git clone https://github.com/bali1527/ai-ticket-assistant.git
+cd ai-ticket-assistant
+```
+
+---
+
+## 2. Create a Virtual Environment
+
+```bash
+python -m venv venv
+```
+
+### Activate Environment
+
+Windows:
+
+```bash
+venv\Scripts\activate
+```
+
+Linux / Mac:
+
+```bash
+source venv/bin/activate
+```
+
+---
+
+## 3. Install Dependencies
+
+```bash
+pip install -r requirements.txt
+```
+
+---
+
+## 4. Configure Environment Variables
+
+Create a `.env` file:
+
+```env
+GROQ_API_KEY=your_groq_api_key
+```
+
+---
+
+# ▶️ Running the Application
+
+Launch the Streamlit dashboard:
+
+```bash
+streamlit run ui/streamlit_app.py
+```
+
+Open:
+
+```text
+http://localhost:8501
+```
+
+---
+
+# 🧪 Sample Queries
+
+### Open Tickets
+
+```sql
+SELECT COUNT(*)
+FROM tickets
+WHERE status='Open';
+```
+
+**Result:** 111
+
+---
+
+### Critical Tickets
+
+```sql
+SELECT COUNT(*)
+FROM tickets
+WHERE priority='Critical';
+```
+
+**Result:** 55
+
+---
+
+### Lowest Rated Agent
+
+```sql
+SELECT agent_id,
+AVG(customer_rating) AS avg_rating
+FROM tickets
+GROUP BY agent_id
+ORDER BY avg_rating ASC
+LIMIT 1;
+```
+
+**Result:** AGT-08 → 3.48
+
+---
+
+### Technical Ticket Rating
+
+```sql
+SELECT AVG(customer_rating)
+FROM tickets
+WHERE category='Technical';
+```
+
+**Result:** 3.74
+
+---
+
+### Unresolved Tickets
+
+```sql
+SELECT COUNT(*)
+FROM tickets
+WHERE status <> 'Resolved';
+```
+
+**Result:** 173
+
+---
+
+# 🚨 Anomaly Detection Results
+
+| Anomaly Type | Count |
+|-------------|--------|
+| Unresolved High/Critical Tickets | 80 |
+| Resolution Time Anomalies | 17 |
+| Low Rated Tickets | 47 |
+
+---
+
+# 🔮 Future Enhancements
+
+- Query History
+- Download Results as CSV
+- Interactive Visualizations
+- Agent Performance Dashboard
+- Multi-table Support
+- User Authentication
+- RAG-based Ticket Search
+- Advanced Analytics
+
+---
+
+# 👨‍💻 Author
+
+**Balaji Rithesh G**
+
+AI Engineer | Generative AI | Data Science
+
+GitHub: https://github.com/bali1527
+
+LinkedIn: https://www.linkedin.com/in/balaji-rithesh-in/
+
+---
+
+# 📄 License
+
+This project is intended for educational, learning, and portfolio purposes.
