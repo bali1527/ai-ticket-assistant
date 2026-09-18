@@ -1,0 +1,13 @@
+venv/
+.env
+__pycache__/
+*.pyc
+
+tickets.db
+
+.streamlit/
+
+.idea/
+.vscode/
+
+.DS_Store
